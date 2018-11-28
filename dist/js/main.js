@@ -23,6 +23,26 @@
     });
   };
 
+  const winAlert = (gameCells) => {
+    const compareArr = [];
+    for (let i = 0; i < 16; i++) {
+      const newCell = {
+        text: i + 1,
+        status: false,
+      };
+      compareArr.push(newCell);
+    }
+    compareArr[15].status = true;
+    console.log(compareArr);
+    for (let j = 0; j < gameCells.length; j++) {
+      for (let k = 0; k < compareArr.length; k++) {
+        if (gameCells[j] === compareArr[k]) {
+          console.log('you win!!');
+        }
+      }
+    }
+  };
+
   gameCells[15].status = true;
   render(gameCells);
 
@@ -35,6 +55,7 @@
           gameCells[i - 1] = gameCells[i];
           gameCells[i] = temp;
           render(gameCells);
+          winAlert(gameCells);
         }
       }
     } else if (arrowDirection === 'ArrowRight') {
@@ -44,9 +65,11 @@
           gameCells[i + 1] = gameCells[i];
           gameCells[i] = temp;
           render(gameCells);
+         
           break;
         }
       }
+      winAlert(gameCells);
     } else if (arrowDirection === 'ArrowUp') {
       for (let i = 0; i < gameCells.length; i++) {
         if (gameCells[i].status && i !== 0 && i !== 1 && i !== 2 && i !== 3) {
@@ -58,7 +81,13 @@
       }
     } else if (arrowDirection === 'ArrowDown') {
       for (let i = 0; i < gameCells.length; i++) {
-        if (gameCells[i].status && i !== 12 && i !== 13 && i !== 14 && i !== 15) {
+        if (
+          gameCells[i].status
+          && i !== 12
+          && i !== 13
+          && i !== 14
+          && i !== 15
+        ) {
           const temp = gameCells[i + 4];
           gameCells[i + 4] = gameCells[i];
           gameCells[i] = temp;
@@ -85,6 +114,5 @@
   btn.addEventListener('click', () => {
     shuffle(gameCells);
     render(gameCells);
-    console.log(gameCells);
   });
 }());
