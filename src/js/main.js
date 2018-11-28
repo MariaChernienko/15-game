@@ -28,11 +28,9 @@
 
   window.addEventListener('keydown', (event) => {
     const arrowDirection = event.key;
-    console.log(gameCells.status);
-
     if (arrowDirection === 'ArrowLeft') {
       for (let i = 0; i < gameCells.length; i++) {
-        if (gameCells[i].status) {
+        if (gameCells[i].status && i !== 0 && i !== 4 && i !== 8 && i !== 12) {
           const temp = gameCells[i - 1];
           gameCells[i - 1] = gameCells[i];
           gameCells[i] = temp;
@@ -41,8 +39,7 @@
       }
     } else if (arrowDirection === 'ArrowRight') {
       for (let i = 0; i < gameCells.length; i++) {
-        if (gameCells[i].status) {
-          console.log(gameCells[i]);
+        if (gameCells[i].status && i !== 3 && i !== 7 && i !== 11 && i !== 15) {
           const temp = gameCells[i + 1];
           gameCells[i + 1] = gameCells[i];
           gameCells[i] = temp;
@@ -52,8 +49,7 @@
       }
     } else if (arrowDirection === 'ArrowUp') {
       for (let i = 0; i < gameCells.length; i++) {
-        if (gameCells[i].status) {
-          console.log(gameCells[i]);
+        if (gameCells[i].status && i !== 0 && i !== 1 && i !== 2 && i !== 3) {
           const temp = gameCells[i - 4];
           gameCells[i - 4] = gameCells[i];
           gameCells[i] = temp;
@@ -62,8 +58,7 @@
       }
     } else if (arrowDirection === 'ArrowDown') {
       for (let i = 0; i < gameCells.length; i++) {
-        if (gameCells[i].status) {
-          console.log(gameCells[i]);
+        if (gameCells[i].status && i !== 12 && i !== 13 && i !== 14 && i !== 15) {
           const temp = gameCells[i + 4];
           gameCells[i + 4] = gameCells[i];
           gameCells[i] = temp;
@@ -72,13 +67,12 @@
         }
       }
     }
-    console.log(gameCells);
   });
-
 
   const btn = document.querySelector('button');
   function shuffle(arr) {
-    let j; let temp;
+    let j;
+    let temp;
     for (let i = arr.length - 1; i > 0; i--) {
       j = Math.floor(Math.random() * (i + 1));
       temp = arr[j];
