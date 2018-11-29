@@ -25,21 +25,26 @@
 
   const winAlert = (gameCells) => {
     const compareArr = [];
-    for (let i = 0; i < 16; i++) {
+    for (let j = 0; j < 16; j++) {
       const newCell = {
-        text: i + 1,
+        text: j + 1,
         status: false,
       };
       compareArr.push(newCell);
     }
     compareArr[15].status = true;
-    console.log(compareArr);
-    for (let j = 0; j < gameCells.length; j++) {
-      for (let k = 0; k < compareArr.length; k++) {
-        if (gameCells[j] === compareArr[k]) {
-          console.log('you win!!');
-        }
+
+    let counter = 0;
+    for (let k = 0; k < compareArr.length; k++) {
+      if (
+        gameCells[k].text === compareArr[k].text
+        && gameCells[k].status === compareArr[k].status
+      ) {
+        counter += 1;
       }
+    }
+    if (counter == 16) {
+      alert('you win!');
     }
   };
 
@@ -55,7 +60,6 @@
           gameCells[i - 1] = gameCells[i];
           gameCells[i] = temp;
           render(gameCells);
-          winAlert(gameCells);
         }
       }
     } else if (arrowDirection === 'ArrowRight') {
@@ -65,11 +69,12 @@
           gameCells[i + 1] = gameCells[i];
           gameCells[i] = temp;
           render(gameCells);
-         
+          setTimeout(() => {
+            winAlert(gameCells);
+          }, 100);
           break;
         }
       }
-      winAlert(gameCells);
     } else if (arrowDirection === 'ArrowUp') {
       for (let i = 0; i < gameCells.length; i++) {
         if (gameCells[i].status && i !== 0 && i !== 1 && i !== 2 && i !== 3) {
@@ -92,6 +97,9 @@
           gameCells[i + 4] = gameCells[i];
           gameCells[i] = temp;
           render(gameCells);
+          setTimeout(() => {
+            winAlert(gameCells);
+          }, 100);
           break;
         }
       }
